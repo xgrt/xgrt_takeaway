@@ -1,6 +1,6 @@
 package com.xgrt.dto;
 
-import com.sky.entity.OrderDetail;
+import com.xgrt.entity.OrderDetail;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;

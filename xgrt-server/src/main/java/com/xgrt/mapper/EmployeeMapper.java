@@ -1,6 +1,6 @@
 package com.xgrt.mapper;
 
-import com.sky.entity.Employee;
+import com.xgrt.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

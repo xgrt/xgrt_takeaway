@@ -1,6 +1,6 @@
 package com.xgrt.vo;
 
-import com.sky.entity.SetmealDish;
+import com.xgrt.entity.SetmealDish;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

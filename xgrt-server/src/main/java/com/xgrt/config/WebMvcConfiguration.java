@@ -1,6 +1,6 @@
 package com.xgrt.config;
 
-import com.sky.interceptor.JwtTokenAdminInterceptor;
+import com.xgrt.interceptor.JwtTokenAdminInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -51,7 +51,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sky.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.xgrt.controller"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;

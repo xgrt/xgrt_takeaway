@@ -1,7 +1,7 @@
 package com.xgrt.service;
 
-import com.sky.dto.EmployeeLoginDTO;
-import com.sky.entity.Employee;
+import com.xgrt.dto.EmployeeLoginDTO;
+import com.xgrt.entity.Employee;
 
 public interface EmployeeService {
 

@@ -1,6 +1,6 @@
 package com.xgrt.dto;
 
-import com.sky.entity.DishFlavor;
+import com.xgrt.entity.DishFlavor;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;

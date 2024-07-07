@@ -1,6 +1,6 @@
 package com.xgrt.vo;
 
-import com.sky.entity.DishFlavor;
+import com.xgrt.entity.DishFlavor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

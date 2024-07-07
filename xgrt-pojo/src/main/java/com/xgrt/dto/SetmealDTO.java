@@ -1,6 +1,6 @@
 package com.xgrt.dto;
 
-import com.sky.entity.SetmealDish;
+import com.xgrt.entity.SetmealDish;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
