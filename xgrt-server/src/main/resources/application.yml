@@ -2,10 +2,10 @@ server:
   port: 8080
 
 spring:
-  profiles:
-    active: dev
   main:
     allow-circular-references: true
+  profiles:
+    active: dev
   datasource:
     druid:
       driver-class-name: ${xgrt.datasource.driver-class-name}
