@@ -1,5 +1,6 @@
 package com.xgrt.service;
 
+import com.xgrt.dto.EmployeeDTO;
 import com.xgrt.dto.EmployeeLoginDTO;
 import com.xgrt.entity.Employee;
 
@@ -12,4 +13,9 @@ public interface EmployeeService {
      */
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
+    /**
+     * 新增员工
+     * @param employeeDTO
+     */
+    void save(EmployeeDTO employeeDTO);
 }

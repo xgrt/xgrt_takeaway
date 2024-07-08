@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "xgrt.jwt")
+@ConfigurationProperties(prefix = "xgrt.jwt")//表示当前的类是一个配置属性类
 @Data
 public class JwtProperties {
 
