@@ -1,10 +1,13 @@
 package com.xgrt.handler;
 
+import com.xgrt.constant.MessageConstant;
 import com.xgrt.exception.BaseException;
 import com.xgrt.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 全局异常处理器，处理项目中抛出的业务异常
@@ -24,4 +27,24 @@ public class GlobalExceptionHandler {
         return Result.error(ex.getMessage());
     }
 
+    /**
+     * 捕获SQL异常
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler
+    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
+        //处理报错：Duplicate entry 'xgrt' for key 'employee.idx_username'
+        String message = ex.getMessage();
+        if (message.contains("Duplicate entry")){
+            //返回提示信息
+            // 动态提取前端传过来的 username
+            String[] split = message.split(" ");
+            String username = split[2];
+            String msg=username+ MessageConstant.ALREADY_EXIST;
+            return Result.error(msg);
+        }else {
+            return Result.error(MessageConstant.UNKNOWN_ERROR);
+        }
+    }
 }

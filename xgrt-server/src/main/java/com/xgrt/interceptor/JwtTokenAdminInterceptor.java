@@ -1,6 +1,7 @@
 package com.xgrt.interceptor;
 
 import com.xgrt.constant.JwtClaimsConstant;
+import com.xgrt.context.BaseContext;
 import com.xgrt.properties.JwtProperties;
 import com.xgrt.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -34,6 +35,9 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //输出当前线程的id
+        System.out.println("这个是当前线程的id"+Thread.currentThread().getId());
+
         //判断当前拦截到的是Controller的方法还是其他资源
         if (!(handler instanceof HandlerMethod)) {
             //当前拦截到的不是动态方法，直接放行
@@ -47,8 +51,13 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         try {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
+
+            //获取当前员工的id
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
             log.info("当前员工id：", empId);
+            //将当前员工 id放入 存储空间
+            BaseContext.setCurrentId(empId);
+
             //3、通过，放行
             return true;
         } catch (Exception ex) {

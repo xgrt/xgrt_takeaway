@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.xgrt.constant.MessageConstant;
 import com.xgrt.constant.PasswordConstant;
 import com.xgrt.constant.StatusConstant;
+import com.xgrt.context.BaseContext;
 import com.xgrt.dto.EmployeeDTO;
 import com.xgrt.dto.EmployeeLoginDTO;
 import com.xgrt.entity.Employee;
@@ -69,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
-
+        System.out.println("这个是当前线程的id"+Thread.currentThread().getId());
         //对象属性拷贝
         BeanUtils.copyProperties(employeeDTO,employee);
 
@@ -84,9 +85,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
 
         //设置当前记录 创建人id和修改人id
-        //TODO:要改为当前用户的id
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
+        //均设置为当前用户的id
+        Long currentId = BaseContext.getCurrentId();
+        employee.setCreateUser(currentId);
+        employee.setUpdateUser(currentId);
 
         employeeMapper.insert(employee);
     }
