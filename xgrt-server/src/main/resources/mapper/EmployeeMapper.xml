@@ -15,17 +15,18 @@
     <!--已经通过 resultType 和 applicantion.yml 文件配置
     将 com.xgrt.entity包 下面的所有实体创建别名
     就可以直接写 别名 而不需要写 完整类名-->
+<!--    注意：下划线改驼峰命名 不能将 数据库列名（如id_Number） 改成 小写-->
     <update id="update" parameterType="Employee">
         update employee
         <set>
-            <if test="name != null">name = #{name}</if>
-            <if test="username != null">username = #{username}</if>
-            <if test="password != null">password = #{password}</if>
-            <if test="phone != null">phone = #{phone}</if>
-            <if test="sex != null">sex = #{sex}</if>
-            <if test="idNumber != null">id_number = #{idNumber}</if>
-            <if test="updateTime != null">update_time = #{updateTime}</if>
-            <if test="updateUser != null">update_user = #{updateUser}</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="idNumber != null">id_Number = #{idNumber},</if>
+            <if test="updateTime != null">update_Time = #{updateTime},</if>
+            <if test="updateUser != null">update_User = #{updateUser},</if>
             <if test="status != null">status = #{status}</if>
         </set>
         where id = #{id}
