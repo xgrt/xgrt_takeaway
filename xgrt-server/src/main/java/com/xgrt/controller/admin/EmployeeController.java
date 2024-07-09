@@ -3,8 +3,10 @@ package com.xgrt.controller.admin;
 import com.xgrt.constant.JwtClaimsConstant;
 import com.xgrt.dto.EmployeeDTO;
 import com.xgrt.dto.EmployeeLoginDTO;
+import com.xgrt.dto.EmployeePageQueryDTO;
 import com.xgrt.entity.Employee;
 import com.xgrt.properties.JwtProperties;
+import com.xgrt.result.PageResult;
 import com.xgrt.result.Result;
 import com.xgrt.service.EmployeeService;
 import com.xgrt.utils.JwtUtil;
@@ -13,10 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -91,5 +90,18 @@ public class EmployeeController {
         System.out.println("这个是当前线程的id"+Thread.currentThread().getId());
         employeeService.save(employeeDTO);
         return Result.success();
+    }
+
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("员工分页查询")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("员工分页查询参数为"+employeePageQueryDTO);
+        PageResult pageResult=employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(pageResult);
     }
 }

@@ -1,17 +1,21 @@
 package com.xgrt.service.impl;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.xgrt.constant.MessageConstant;
 import com.xgrt.constant.PasswordConstant;
 import com.xgrt.constant.StatusConstant;
 import com.xgrt.context.BaseContext;
 import com.xgrt.dto.EmployeeDTO;
 import com.xgrt.dto.EmployeeLoginDTO;
+import com.xgrt.dto.EmployeePageQueryDTO;
 import com.xgrt.entity.Employee;
 import com.xgrt.exception.AccountLockedException;
 import com.xgrt.exception.AccountNotFoundException;
 import com.xgrt.exception.PasswordErrorException;
 import com.xgrt.mapper.EmployeeMapper;
+import com.xgrt.result.PageResult;
 import com.xgrt.service.EmployeeService;
 import org.apache.commons.codec.cli.Digest;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -91,6 +96,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(currentId);
 
         employeeMapper.insert(employee);
+    }
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        //select * from employee limit 0,10
+        //开始分页查询
+        // PageHelper插件会动态的将字符串 limit x,x 拼接进SQL并且 统计总数据量
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        Page<Employee> page=employeeMapper.pageQuery(employeePageQueryDTO);
+
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+
+        return new PageResult(total,records);
     }
 
 }
