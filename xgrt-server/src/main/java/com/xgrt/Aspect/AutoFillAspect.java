@@ -6,8 +6,6 @@ import com.xgrt.context.BaseContext;
 import com.xgrt.enumeration.OperationType;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -61,7 +59,7 @@ public class AutoFillAspect {
 
         //针对 当前不同的操作类型，为对应的 属性 赋值（通过反射实现）
         if (operationType==OperationType.INSERT){
-            //为4个公共字段命名
+            //为4个公共字段赋值
             try {
                 Method setCreateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
                 Method setCreateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
@@ -77,7 +75,7 @@ public class AutoFillAspect {
                 throw new RuntimeException(e);
             }
         }else if (operationType==OperationType.UPDATE){
-            //为2个公共字段命名
+            //为2个公共字段赋值
             try {
                 Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
                 Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
