@@ -6,7 +6,7 @@ xgrt:
     database: xgrt_takeaway
     username: 鑫哥rt
     password: 272575
-  alioss:
+#  alioss:
     # 黑马老师的阿里云oss
     # TODO：看情况换成自己的
 #    endpoint: oss-cn-beijing.aliyuncs.com
