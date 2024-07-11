@@ -1,12 +1,10 @@
 package com.xgrt.service.impl;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xgrt.constant.MessageConstant;
 import com.xgrt.constant.PasswordConstant;
 import com.xgrt.constant.StatusConstant;
-import com.xgrt.context.BaseContext;
 import com.xgrt.dto.EmployeeDTO;
 import com.xgrt.dto.EmployeeLoginDTO;
 import com.xgrt.dto.EmployeePageQueryDTO;
@@ -17,13 +15,11 @@ import com.xgrt.exception.PasswordErrorException;
 import com.xgrt.mapper.EmployeeMapper;
 import com.xgrt.result.PageResult;
 import com.xgrt.service.EmployeeService;
-import org.apache.commons.codec.cli.Digest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 

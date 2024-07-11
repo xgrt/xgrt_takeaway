@@ -37,3 +37,8 @@ xgrt:
     admin-ttl: 86400000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+  alioss:
+    access-key-id: ${xgrt.alioss.access-key-id}
+    endpoint: ${xgrt.alioss.endpoint}
+    access-key-secret: ${xgrt.alioss.access-key-secret}
+    bucket-name: ${xgrt.alioss.bucket-name}

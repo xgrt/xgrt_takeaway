@@ -25,10 +25,12 @@
         <druid>1.2.1</druid>
         <pagehelper>1.3.0</pagehelper>
         <aliyun.sdk.oss>3.10.2</aliyun.sdk.oss>
+        <jaxb-api>2.3.1</jaxb-api>
+        <activation>1.1.1</activation>
+        <jaxb.runtime>2.3.3</jaxb.runtime>
         <knife4j>3.0.3</knife4j>
         <aspectj>1.9.4</aspectj>
         <jjwt>0.9.1</jjwt>
-        <jaxb-api>2.3.1</jaxb-api>
         <poi>3.16</poi>
     </properties>
     <dependencyManagement>
@@ -93,16 +95,26 @@
                 <version>${jjwt}</version>
             </dependency>
 
+            <!--阿里云oss对象存储服务器的SDK-->
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun.sdk.oss}</version>
             </dependency>
-
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
                 <version>${jaxb-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>${activation}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${jaxb.runtime}</version>
             </dependency>
 
             <!-- poi -->
