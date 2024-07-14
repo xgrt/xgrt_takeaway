@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xgrt.mapper.SetMealDishMapper">
+
+    <select id="getSetMealDishIds" resultType="java.lang.Long">
+        select setmeal_id from setmeal_dish where dish_id in
+           /*open；指的是在 遍历开始时 加上的 符号
+             close：指的是子啊 遍历结束后 加上的 符号
+             separator：每部分的 分隔符 */
+        <foreach collection="dishIds" item="dishId" separator="," open="(" close=")">
+        #{dishId}
+        </foreach>
+    </select>
+</mapper>

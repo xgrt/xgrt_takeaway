@@ -14,6 +14,6 @@ xgrt:
 #    access-key-secret: U6k1brOZ8gaOIXv3nXbu1GTUzy6Pd7
 #    bucket-name: sky-itcast
     endpoint: oss-cn-hangzhou.aliyuncs.com
-    access-key-id:
-    access-key-secret:
+    access-key-id: #
+    access-key-secret: #
     bucket-name: xgrt-takeaway-project

@@ -1,6 +1,7 @@
 package com.xgrt.mapper;
 
 import com.xgrt.entity.DishFlavor;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,4 +15,11 @@ public interface DishFlavorMapper {
      * @param flavors
      */
     void insertBetch(List<DishFlavor> flavors);
+
+    /**
+     * 根据菜品ID删除对应的口味属性
+     * @param dishId
+     */
+    @Delete("delete from dish_flavor where dish_id=#{dishId}")
+    void deleteByDishId(Long dishId);
 }
