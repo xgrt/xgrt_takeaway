@@ -2,6 +2,7 @@ package com.xgrt.service;
 
 import com.xgrt.dto.DishDTO;
 import com.xgrt.dto.DishPageQueryDTO;
+import com.xgrt.entity.Dish;
 import com.xgrt.result.PageResult;
 import com.xgrt.vo.DishVO;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,20 @@ public interface DishService {
      * @param dishDTO
      */
     void updateWithFlavor(DishDTO dishDTO);
+
+    /**
+     * 按分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    List<Dish> listByCategoryId(Long categoryId);
+
+
+    /**
+     * 起售停售菜品
+     * @param id
+     * @param status
+     */
+    //TODO：起售停售菜品（等 套餐功能 和 用户端展示菜品功能 完成）
+    /*void startOrStop(Long id, Integer status);*/
 }

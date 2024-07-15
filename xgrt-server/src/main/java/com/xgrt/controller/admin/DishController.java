@@ -2,6 +2,7 @@ package com.xgrt.controller.admin;
 
 import com.xgrt.dto.DishDTO;
 import com.xgrt.dto.DishPageQueryDTO;
+import com.xgrt.entity.Dish;
 import com.xgrt.result.PageResult;
 import com.xgrt.result.Result;
 import com.xgrt.service.DishService;
@@ -92,4 +93,33 @@ public class DishController {
         dishService.updateWithFlavor(dishDTO);
         return Result.success();
     }
+
+    /**
+     * 按分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("按分类id查询菜品")
+    public Result<List<Dish>> listByCategoryId(@RequestParam Long categoryId){
+        log.info("按分类id查询菜品：{}",categoryId);
+        List<Dish> dishes=dishService.listByCategoryId(categoryId);
+        return Result.success(dishes);
+    }
+
+
+    /**
+     * 起售停售菜品
+     * @param status
+     * @param id
+     * @return
+     */
+    //TODO：起售停售菜品（等 套餐功能 和 用户端展示菜品功能 完成）
+    /*@ApiOperation("起售停售菜品")
+    @PostMapping("/status/{status}")
+    public Result startOrStop(@PathVariable Integer status,@RequestParam Long id){
+        log.info("起售停售菜品");
+        dishService.startOrStop(id,status);
+        return Result.success();
+    }*/
 }

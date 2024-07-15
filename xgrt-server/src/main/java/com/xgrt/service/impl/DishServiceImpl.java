@@ -161,4 +161,26 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.insertBetch(flavors);
         }
     }
+
+    /**
+     * 按分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    public List<Dish> listByCategoryId(Long categoryId) {
+        return dishMapper.listByCategoryId(categoryId);
+    }
+
+    /**
+     * 起售停售菜品
+     * @param id
+     * @param status
+     */
+    //TODO：起售停售菜品（等 套餐功能 和 用户端展示菜品功能 完成）
+   /* public void startOrStop(Long id, Integer status) {
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+        dishMapper.update(dish);
+    }*/
 }
