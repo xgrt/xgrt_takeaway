@@ -9,11 +9,11 @@ xgrt:
   alioss:
     # 黑马老师的阿里云oss
     # TODO：看情况换成自己的
-#    endpoint: oss-cn-beijing.aliyuncs.com
-#    access-key-id: LTAI5tPeFLzsPPT8gG3LPW64
-#    access-key-secret: U6k1brOZ8gaOIXv3nXbu1GTUzy6Pd7
-#    bucket-name: sky-itcast
-    endpoint: oss-cn-hangzhou.aliyuncs.com
-    access-key-id: #
-    access-key-secret: #
-    bucket-name: xgrt-takeaway-project
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: LTAI5tPeFLzsPPT8gG3LPW64
+    access-key-secret: U6k1brOZ8gaOIXv3nXbu1GTUzy6Pd7
+    bucket-name: sky-itcast
+#    endpoint: oss-cn-hangzhou.aliyuncs.com
+#    access-key-id: #
+#    access-key-secret: #
+#    bucket-name: xgrt-takeaway-project

@@ -50,4 +50,13 @@ public interface DishMapper {
      * @param ids
      */
     void deleteByIds(List<Long> ids);
+
+    /**
+     * 修改菜品信息
+     * 动态SQL
+     * 有修改时间和修改人，可以使用自动填充
+     * @param dish
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Dish dish);
 }
