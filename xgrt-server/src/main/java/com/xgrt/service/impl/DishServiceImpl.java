@@ -36,6 +36,7 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     private SetMealDishMapper setMealDishMapper;
+
     /**
      * 新建菜品和对应的口味
      * 涉及 多表操作，要保证 数据一致性 和 方法原子性
@@ -61,7 +62,7 @@ public class DishServiceImpl implements DishService {
                 dishFlavor.setDishId(dishId);
             });
             //向 口味表 插入n条数据
-            dishFlavorMapper.insertBetch(flavors);
+            dishFlavorMapper.insertBatch(flavors);
         }
     }
 
@@ -158,7 +159,7 @@ public class DishServiceImpl implements DishService {
             flavors.forEach(dishFlavor -> {
                 dishFlavor.setDishId(dishDTO.getId());
             });
-            dishFlavorMapper.insertBetch(flavors);
+            dishFlavorMapper.insertBatch(flavors);
         }
     }
 

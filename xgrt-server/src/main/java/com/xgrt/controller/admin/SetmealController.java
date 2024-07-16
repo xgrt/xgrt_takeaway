@@ -6,6 +6,7 @@ import com.xgrt.entity.Setmeal;
 import com.xgrt.result.PageResult;
 import com.xgrt.result.Result;
 import com.xgrt.service.SetmealService;
+import com.xgrt.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -46,4 +47,29 @@ public class SetmealController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 根据id查询套餐
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询套餐")
+    public Result<SetmealVO> getById(@PathVariable Long id) {
+        log.info("根据id查询套餐");
+        SetmealVO setmealVO=setmealService.getById(id);
+        return Result.success(setmealVO);
+    }
+
+    /**
+     * 修改套餐
+     * @param setmealDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("修改套餐")
+    public Result update(@RequestBody SetmealDTO setmealDTO) {
+        log.info("修改套餐");
+        setmealService.updateWithSetmealDish(setmealDTO);
+        return Result.success();
+    }
 }

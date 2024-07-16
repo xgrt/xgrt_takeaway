@@ -1,8 +1,10 @@
 package com.xgrt.mapper;
 
 import com.xgrt.entity.SetmealDish;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,8 +20,23 @@ public interface SetMealDishMapper {
     List<Long> getSetMealDishIds(List<Long> dishIds);
 
     /**
-     * 批量插入 套餐-菜品关系
+     * 批量插入 套餐菜品
      * @param setmealDishes
      */
-    void insertBetch(List<SetmealDish> setmealDishes);
+    void insertBatch(List<SetmealDish> setmealDishes);
+
+    /**
+     * 根据 套餐id 查询 套餐菜品
+     * @param setmealId
+     * @return
+     */
+    @Select("select * from setmeal_dish where setmeal_id=#{setmealId}")
+    List<SetmealDish> getBySetmealId(Long setmealId);
+
+    /**
+     * 按套餐Id删除套餐菜品
+     * @param setmealId
+     */
+    @Delete("delete from setmeal_dish where setmeal_id=#{setmealId}")
+    void deleteBySetmealId(Long setmealId);
 }

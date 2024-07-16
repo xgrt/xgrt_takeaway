@@ -15,7 +15,7 @@ public interface DishFlavorMapper {
      * 要用到动态SQL
      * @param flavors
      */
-    void insertBetch(List<DishFlavor> flavors);
+    void insertBatch(List<DishFlavor> flavors);
 
     /**
      * 根据菜品ID删除对应的口味属性
