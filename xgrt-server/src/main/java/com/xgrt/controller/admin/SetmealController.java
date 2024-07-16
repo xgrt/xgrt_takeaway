@@ -2,7 +2,6 @@ package com.xgrt.controller.admin;
 
 import com.xgrt.dto.SetmealDTO;
 import com.xgrt.dto.SetmealPageQueryDTO;
-import com.xgrt.entity.Setmeal;
 import com.xgrt.result.PageResult;
 import com.xgrt.result.Result;
 import com.xgrt.service.SetmealService;

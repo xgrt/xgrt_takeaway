@@ -2,14 +2,12 @@ package com.xgrt.mapper;
 
 import com.github.pagehelper.Page;
 import com.xgrt.annotation.AutoFill;
-import com.xgrt.dto.SetmealDTO;
 import com.xgrt.dto.SetmealPageQueryDTO;
 import com.xgrt.entity.Setmeal;
 import com.xgrt.enumeration.OperationType;
 import com.xgrt.vo.SetmealVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 

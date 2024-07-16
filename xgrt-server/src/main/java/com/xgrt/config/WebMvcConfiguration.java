@@ -1,6 +1,5 @@
 package com.xgrt.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xgrt.interceptor.JwtTokenAdminInterceptor;
 import com.xgrt.json.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;

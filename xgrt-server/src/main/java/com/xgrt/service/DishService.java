@@ -5,7 +5,6 @@ import com.xgrt.dto.DishPageQueryDTO;
 import com.xgrt.entity.Dish;
 import com.xgrt.result.PageResult;
 import com.xgrt.vo.DishVO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
