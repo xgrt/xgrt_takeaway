@@ -5,6 +5,8 @@ import com.xgrt.dto.SetmealPageQueryDTO;
 import com.xgrt.result.PageResult;
 import com.xgrt.vo.SetmealVO;
 
+import java.util.List;
+
 public interface SetmealService {
     /**
      * 分页查询套餐
@@ -31,4 +33,10 @@ public interface SetmealService {
      * @param setmealDTO
      */
     void updateWithSetmealDish(SetmealDTO setmealDTO);
+
+    /**
+     * 批量删除套餐 和 关联的套餐菜品
+     * @param ids
+     */
+    void deleteBatch(List<Long> ids);
 }

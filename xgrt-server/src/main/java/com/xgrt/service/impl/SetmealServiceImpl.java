@@ -2,23 +2,31 @@ package com.xgrt.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xgrt.constant.MessageConstant;
+import com.xgrt.constant.StatusConstant;
 import com.xgrt.dto.SetmealDTO;
 import com.xgrt.dto.SetmealPageQueryDTO;
 import com.xgrt.entity.Setmeal;
 import com.xgrt.entity.SetmealDish;
+import com.xgrt.exception.DeletionNotAllowedException;
 import com.xgrt.mapper.SetMealDishMapper;
 import com.xgrt.mapper.SetmealMapper;
 import com.xgrt.result.PageResult;
 import com.xgrt.service.SetmealService;
 import com.xgrt.vo.SetmealVO;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.functors.ExceptionClosure;
+import org.aspectj.apache.bcel.ExceptionConstants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
+@Slf4j
 public class SetmealServiceImpl implements SetmealService {
     @Autowired
     private SetmealMapper setmealMapper;
@@ -88,18 +96,40 @@ public class SetmealServiceImpl implements SetmealService {
         BeanUtils.copyProperties(setmealDTO,setmeal);
 
         //修改 套餐基本信息
+        //TODO：name重复时发送了正确的错误信息 但 前端不显示
         setmealMapper.update(setmeal);
 
         //修改 套餐菜品
-        Long setmealId = setmealDTO.getId();
         //按套餐Id删除套餐菜品
-        setMealDishMapper.deleteBySetmealId(setmealId);
-
+        setMealDishMapper.deleteBySetmealId(setmealDTO.getId());
         //重新添加套餐菜品
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
-        for (SetmealDish setmealDish : setmealDishes) {
-            setmealDish.setSetmealId(setmealId);
+        if (setmealDishes!=null&& !setmealDishes.isEmpty()) {
+            for (SetmealDish setmealDish : setmealDishes) {
+                setmealDish.setSetmealId(setmealDTO.getId());
+            }
         }
         setMealDishMapper.insertBatch(setmealDishes);
+    }
+
+    /**
+     * 批量删除套餐 和 关联的套餐菜品
+     * @param ids
+     */
+    @Transactional
+    public void deleteBatch(List<Long> ids) {
+        //能不能删——判断套餐中有没有正在起售的套餐
+        for (Long id : ids) {
+            Setmeal setmeal = setmealMapper.getById(id);
+            if (setmeal.getStatus()== StatusConstant.ENABLE){
+                throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+            }
+        }
+
+        //批量删除删除套餐
+        setmealMapper.deleteBatch(ids);
+
+        //根据套餐id批量删除套餐菜品
+        setMealDishMapper.deleteBySetmealIdBatch(ids);
     }
 }
