@@ -22,7 +22,7 @@
     <delete id="deleteBySetmealIdBatch">
         delete from setmeal_dish where setmeal_id in
         <foreach collection="setmealIds" item="setmealId" open="(" close=")" separator=",">
-                                 #{setmealId}
+                                       #{setmealId}
         </foreach>
 
     </delete>

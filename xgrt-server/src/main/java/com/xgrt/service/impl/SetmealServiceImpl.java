@@ -6,9 +6,12 @@ import com.xgrt.constant.MessageConstant;
 import com.xgrt.constant.StatusConstant;
 import com.xgrt.dto.SetmealDTO;
 import com.xgrt.dto.SetmealPageQueryDTO;
+import com.xgrt.entity.Dish;
 import com.xgrt.entity.Setmeal;
 import com.xgrt.entity.SetmealDish;
 import com.xgrt.exception.DeletionNotAllowedException;
+import com.xgrt.exception.SetmealEnableFailedException;
+import com.xgrt.mapper.DishMapper;
 import com.xgrt.mapper.SetMealDishMapper;
 import com.xgrt.mapper.SetmealMapper;
 import com.xgrt.result.PageResult;
@@ -22,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +37,8 @@ public class SetmealServiceImpl implements SetmealService {
     @Autowired
     private SetMealDishMapper setMealDishMapper;
 
+    @Autowired
+    private DishMapper dishMapper;
     /**
      * 分页查询套餐
      * @param setmealPageQueryDTO
@@ -131,5 +137,41 @@ public class SetmealServiceImpl implements SetmealService {
 
         //根据套餐id批量删除套餐菜品
         setMealDishMapper.deleteBySetmealIdBatch(ids);
+    }
+
+    /**
+     * 起售停售套餐
+     * @param status
+     * @param id
+     */
+    public void startAndStop(Integer status, Long id) {
+        if (status==StatusConstant.ENABLE){
+            //能不能起售——套餐中的菜品都是起售状态
+            List<SetmealDish> setmealDishes = setMealDishMapper.getBySetmealId(id);
+            /*for (SetmealDish setmealDish : setmealDishes) {
+                Dish dish = dishMapper.getById(setmealDish.getDishId());
+                if (dish.getStatus()==StatusConstant.DISABLE){
+                    throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
+                }
+            }*/
+
+            //优化：先把 菜品全部查询出来，再去筛选
+            List<Long> dishIds = new ArrayList<>();
+            for (SetmealDish setmealDish : setmealDishes) {
+                dishIds.add(setmealDish.getDishId());
+            }
+            List<Dish> dishes=dishMapper.getByIdBatch(dishIds);
+            for (Dish dish : dishes) {
+                if (dish.getStatus()== StatusConstant.DISABLE){
+                    throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
+                }
+            }
+        }
+        //修改套餐状态
+        Setmeal setmeal=Setmeal.builder()
+                .id(id)
+                .status(status)
+                .build();
+        setmealMapper.update(setmeal);
     }
 }

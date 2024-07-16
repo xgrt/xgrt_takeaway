@@ -9,6 +9,7 @@ import com.xgrt.enumeration.OperationType;
 import com.xgrt.vo.SetmealVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 

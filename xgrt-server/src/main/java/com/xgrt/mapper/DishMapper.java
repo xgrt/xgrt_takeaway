@@ -67,4 +67,11 @@ public interface DishMapper {
      */
     @Select("select * from dish where category_id=#{categoryId} order by create_time desc")
     List<Dish> listByCategoryId(Long categoryId);
+
+    /**
+     * 根据id批量查询菜品
+     * @param ids
+     * @return
+     */
+    List<Dish> getByIdBatch(List<Long> ids);
 }
