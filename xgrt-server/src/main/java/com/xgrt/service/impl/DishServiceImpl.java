@@ -187,16 +187,18 @@ public class DishServiceImpl implements DishService {
     public void startOrStop(Long id, Integer status) {
 
         Dish dish = Dish.builder().id(id).status(status).build();
+
         //如果需要停售菜品，先要停售相关的套餐
         if(status==StatusConstant.DISABLE){
             List<Long> dishId=new ArrayList<>();
             dishId.add(id);
             List<Long> setMealIds = setMealDishMapper.getSetMealIds(dishId);
-            Setmeal modelSetmeal = Setmeal.builder().status(StatusConstant.DISABLE).build();
             if(setMealIds!=null && !setMealIds.isEmpty()){
+                Setmeal modelSetmeal = Setmeal.builder().status(StatusConstant.DISABLE).build();
                 setmealMapper.updateBatch(modelSetmeal,setMealIds);
             }
         }
+
         //修改菜品状态
         dishMapper.update(dish);
     }
