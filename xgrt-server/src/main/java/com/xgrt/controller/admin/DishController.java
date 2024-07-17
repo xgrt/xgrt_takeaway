@@ -114,12 +114,11 @@ public class DishController {
      * @param id
      * @return
      */
-    //TODO：起售停售菜品（等 套餐功能 和 用户端展示菜品功能 完成）
-    /*@ApiOperation("起售停售菜品")
+    @ApiOperation("起售停售菜品")
     @PostMapping("/status/{status}")
     public Result startOrStop(@PathVariable Integer status,@RequestParam Long id){
         log.info("起售停售菜品");
         dishService.startOrStop(id,status);
         return Result.success();
-    }*/
+    }
 }

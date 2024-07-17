@@ -58,4 +58,12 @@ public interface SetmealMapper {
      * @param ids
      */
     void deleteBatch(List<Long> ids);
+
+    /**
+     * 批量修改套餐为同一属性（name和id不能修改）
+     * @param modelSetmeal
+     * @param ids
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    void updateBatch(Setmeal modelSetmeal, List<Long> ids);
 }

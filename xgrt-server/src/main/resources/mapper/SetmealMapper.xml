@@ -55,6 +55,37 @@
         where id=#{id}
     </update>
 
+    <update id="updateBatch">
+        update setmeal
+        <set>
+            <if test="modelSetmeal.categoryId!=null">
+                category_id = #{modelSetmeal.categoryId},
+            </if>
+            <if test="modelSetmeal.price!=null">
+                price = #{modelSetmeal.price},
+            </if>
+            <if test="modelSetmeal.status!=null">
+                status = #{modelSetmeal.status},
+            </if>
+            <if test="modelSetmeal.description!=null">
+                description = #{modelSetmeal.description},
+            </if>
+            <if test="modelSetmeal.image!=null">
+                image = #{modelSetmeal.image},
+            </if>
+            <if test="modelSetmeal.updateUser!=null">
+                update_user = #{modelSetmeal.updateUser},
+            </if>
+            <if test="modelSetmeal.updateTime!=null">
+                update_time = #{modelSetmeal.updateTime},
+            </if>
+        </set>
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
     <delete id="deleteBatch">
         delete from setmeal where id in
         <foreach collection="ids" separator="," open="(" close=")" item="id">

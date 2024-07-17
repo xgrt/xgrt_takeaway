@@ -8,10 +8,12 @@ import com.xgrt.dto.DishDTO;
 import com.xgrt.dto.DishPageQueryDTO;
 import com.xgrt.entity.Dish;
 import com.xgrt.entity.DishFlavor;
+import com.xgrt.entity.Setmeal;
 import com.xgrt.exception.DeletionNotAllowedException;
 import com.xgrt.mapper.DishFlavorMapper;
 import com.xgrt.mapper.DishMapper;
 import com.xgrt.mapper.SetMealDishMapper;
+import com.xgrt.mapper.SetmealMapper;
 import com.xgrt.result.PageResult;
 import com.xgrt.service.DishService;
 import com.xgrt.vo.DishVO;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +38,9 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     private SetMealDishMapper setMealDishMapper;
+
+    @Autowired
+    private SetmealMapper setmealMapper;
 
     /**
      * 新建菜品和对应的口味
@@ -91,8 +97,8 @@ public class DishServiceImpl implements DishService {
         }
 
         //2、判断当前菜品是否能够删除——是否被套餐关联
-        List<Long> setMealDishIds = setMealDishMapper.getSetMealDishIds(ids);
-        if (setMealDishIds != null && !setMealDishIds.isEmpty()) {
+        List<Long> setMealIds = setMealDishMapper.getSetMealIds(ids);
+        if (setMealIds != null && !setMealIds.isEmpty()) {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
 
@@ -173,14 +179,25 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 起售停售菜品
+     * 停售菜品的同时停售相关套餐
      * @param id
      * @param status
      */
-    //TODO：起售停售菜品（等 套餐功能 和 用户端展示菜品功能 完成）
-   /* public void startOrStop(Long id, Integer status) {
-        Dish dish = new Dish();
-        dish.setId(id);
-        dish.setStatus(status);
+    @Transactional
+    public void startOrStop(Long id, Integer status) {
+
+        Dish dish = Dish.builder().id(id).status(status).build();
+        //如果需要停售菜品，先要停售相关的套餐
+        if(status==StatusConstant.DISABLE){
+            List<Long> dishId=new ArrayList<>();
+            dishId.add(id);
+            List<Long> setMealIds = setMealDishMapper.getSetMealIds(dishId);
+            Setmeal modelSetmeal = Setmeal.builder().status(StatusConstant.DISABLE).build();
+            if(setMealIds!=null && !setMealIds.isEmpty()){
+                setmealMapper.updateBatch(modelSetmeal,setMealIds);
+            }
+        }
+        //修改菜品状态
         dishMapper.update(dish);
-    }*/
+    }
 }

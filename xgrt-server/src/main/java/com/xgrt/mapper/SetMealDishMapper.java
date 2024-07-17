@@ -16,7 +16,7 @@ public interface SetMealDishMapper {
      * @return
      */
     //select setmeal_id from setmeal_dish where dish_id in (1,2,3……)
-    List<Long> getSetMealDishIds(List<Long> dishIds);
+    List<Long> getSetMealIds(List<Long> dishIds);
 
     /**
      * 批量插入 套餐菜品
@@ -44,4 +44,5 @@ public interface SetMealDishMapper {
      * @param setmealIds
      */
     void deleteBySetmealIdBatch(List<Long> setmealIds);
+
 }

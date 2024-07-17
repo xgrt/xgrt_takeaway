@@ -56,6 +56,5 @@ public interface DishService {
      * @param id
      * @param status
      */
-    //TODO：起售停售菜品（等 套餐功能 和 用户端展示菜品功能 完成）
-    /*void startOrStop(Long id, Integer status);*/
+    void startOrStop(Long id, Integer status);
 }
